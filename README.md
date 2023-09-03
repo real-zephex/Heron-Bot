@@ -1,7 +1,7 @@
 
 # Heron Bot
 
-Don't expect much! I am working on this bot
+I no longer work on this bot.
 
 **You need to edit some important values to get this bot running**
 
