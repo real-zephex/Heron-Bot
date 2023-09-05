@@ -1,13 +1,16 @@
+import os
+
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-import os
+
 load_dotenv()
 
 wc = os.getenv("welcome_channel")
 ml = os.getenv("message_log")
 
-class cog_1(commands.Cog):
+
+class Logs(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -23,7 +26,6 @@ class cog_1(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-
         # await self.client.get_channel(956266369320624128).send(f"{member.mention} has joined the server")
         embed = discord.Embed(
             title="New Member Joined!! :tada: ",
@@ -36,7 +38,7 @@ class cog_1(commands.Cog):
     @commands.cooldown(rate=2, per=30)
     async def ping(self, ctx):
         await ctx.reply(f"{ctx.message.author.mention} Pong!! :ping_pong:")
-        
+
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.id in [self.client.user.id, 961676784196255846]:
@@ -61,4 +63,4 @@ class cog_1(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(cog_1(client))
+    client.add_cog(Logs(client))

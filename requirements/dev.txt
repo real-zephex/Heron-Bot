@@ -1,0 +1,4 @@
+pre-commit>=3.4.0
+pyright>=1.1.325
+ruff>=0.0.287
+jishaku>=2.5.1

@@ -1,0 +1,4 @@
+discord.py[speed]==2.3.2
+python-dotenv==1.0.0
+uvloop==0.17.0 ; sys_platform != "win32" # Replace the default evnet loop with ones from uvloop, which uses libuv insteads
+discord-ext-menus @ git+https://github.com/Rapptz/discord-ext-menus@8686b5d1bbc1d3c862292eb436ab630d6e9c9b53
