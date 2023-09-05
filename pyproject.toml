@@ -1,0 +1,25 @@
+[tool.isort]
+profile = 'black'
+
+[tool.pyright]
+include = [
+    "cogs/**",
+    "bot.py",
+    "main.py"
+]
+exclude = [
+    "**/__pycache__", 
+    "**/.mypy_cache", 
+    "**/.dmpypy.json", 
+    "Docs",
+]
+reportMissingImports = true
+typeCheckingMode = "basic"
+reportUnnecessaryTypeIgnoreComment = "warning"
+
+[tool.bandit]
+skips = ["B311", "B101"]
+
+[tool.ruff]
+ignore = ["E501", "N999"]
+select = ["E", "F", "N"]

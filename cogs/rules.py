@@ -1,17 +1,23 @@
 import discord
 from discord.ext import commands
-from dotenv import load_dotenv
-import os
-load_dotenv()
+
+from bot import Heron
+from cogs.utils import HeronContext
 
 
-class cog_8(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+class Rules(commands.Cog):
+    """Rule related commands"""
+
+    def __init__(self, bot: Heron):
+        self.bot = bot
+
+    @property
+    def display_emoji(self) -> discord.PartialEmoji:
+        return discord.PartialEmoji(name="\U0001f4dc")
 
     @commands.command()
-    async def rules(self, ctx):
-
+    async def rules(self, ctx: HeronContext):
+        """Heron's Rules"""
         embed = discord.Embed(
             title="Rules", description="Never try to break these rules", colour=0x87CEEB
         )
@@ -36,8 +42,8 @@ class cog_8(commands.Cog):
             text="We are watching you!!",
             icon_url="https://cdn.discordapp.com/emojis/754736642761424986.png",
         )
-        await ctx.reply(embed=embed)
+        await ctx.send(embed=embed)
 
 
-def setup(client):
-    client.add_cog(cog_8(client))
+async def setup(bot: Heron):
+    await bot.add_cog(Rules(bot))

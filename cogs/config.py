@@ -1,14 +1,25 @@
 import discord
 from discord.ext import commands
 
-class cog_9(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+from bot import Heron
+from cogs.utils import HeronContext
 
-    @commands.command(name="toggle", description="Enable or disable a command!")
+
+class Config(commands.Cog):
+    """Configuration for Heron"""
+
+    def __init__(self, bot: Heron) -> None:
+        self.bot = bot
+
+    @property
+    def display_emoji(self) -> discord.PartialEmoji:
+        return discord.PartialEmoji(name="\U0001f6e0")
+
+    @commands.command(name="toggle")
     @commands.is_owner()
-    async def toggle(self, ctx, *, command):
-        command = self.client.get_command(command)
+    async def toggle(self, ctx: HeronContext, *, command: str):
+        """Enable or disable a command!"""
+        command = self.bot.get_command(command)
 
         if command is None:
             embed = discord.Embed(
@@ -33,5 +44,5 @@ class cog_9(commands.Cog):
         await ctx.send(embed=embed)
 
 
-def setup(client):
-    client.add_cog(cog_9(client))
+async def setup(bot: Heron):
+    await bot.add_cog(Config(bot))

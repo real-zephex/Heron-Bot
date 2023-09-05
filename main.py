@@ -1,49 +1,51 @@
-import discord
-from discord.ext import commands
+import asyncio
 import os
+from pathlib import Path
+
+import discord
+from aiohttp import ClientSession
 from dotenv import load_dotenv
-import module
+
+from bot import Heron
+from cogs.utils import HeronLogger, read_env
+
+# Only used for Windows development
+if os.name == "nt":
+    import winloop
+
+    asyncio.set_event_loop_policy(winloop.WinLoopPolicy())
+else:
+    try:
+        import uvloop
+
+        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+    except ImportError:
+        pass
 
 load_dotenv()
 
-my_secret = os.getenv("token")  # grabbing token
+TOKEN = os.environ["TOKEN"]
+ENV_PATH = Path(__file__).parent / ".env"
+
 intents = discord.Intents.default()
-intents.members = True
-client = commands.Bot(command_prefix=".", intents=intents, help_command=None)
+intents.message_content = True
 
 
-@client.command()
-@commands.has_permissions(administrator=True)
-async def reload(ctx, extension):
-    client.unload_extension(f"cogs.{extension}")
-    client.load_extension(f"cogs.{extension}")
-    await ctx.send("Successfully Reloaded! :white_check_mark: ")
+async def main() -> None:
+    async with ClientSession() as session:
+        async with Heron(
+            config=read_env(ENV_PATH), intents=intents, session=session
+        ) as bot:
+            await bot.start(TOKEN)
 
 
-@reload.error
-async def reload_error(ctx, error):
-    if isinstance(error,  commands.MissingPermissions):
-        embed = discord.Embed(
-            title="Insufficient Permissions",
-            color=0x465722,
-            description="You dont have permissions to reload cogs"
-        )
-        await ctx.send(embed=embed)
+def launch() -> None:
+    with HeronLogger():
+        asyncio.run(main())
 
-    elif isinstance(error, commands.MissingRequiredArgument):
-        embed = discord.Embed(
-            title="Cog needs to be attached",
-            description="Command is : .reload <cog name>"
-        )
-        await ctx.send(embed=embed)
 
-for filename in os.listdir("./cogs"):
-    if filename.endswith(".py"):
-        client.load_extension(f"cogs.{filename[:-3]}")
-
-module.clear("""
-            Welcome to Heron Bot! This bot is currently under development and
-                         it is bound to get delayed!
-                        Made by : Phoenix
-""")
-client.run(my_secret)
+if __name__ == "__main__":
+    try:
+        launch()
+    except KeyboardInterrupt:
+        pass
