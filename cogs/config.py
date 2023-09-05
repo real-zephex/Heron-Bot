@@ -1,14 +1,18 @@
 import discord
 from discord.ext import commands
 
-class cog_9(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+from bot import Heron
+from cogs.utils import HeronContext
+
+
+class Config(commands.Cog):
+    def __init__(self, bot: Heron) -> None:
+        self.bot = bot
 
     @commands.command(name="toggle", description="Enable or disable a command!")
     @commands.is_owner()
-    async def toggle(self, ctx, *, command):
-        command = self.client.get_command(command)
+    async def toggle(self, ctx: HeronContext, *, command: str):
+        command = self.bot.get_command(command)
 
         if command is None:
             embed = discord.Embed(
@@ -33,5 +37,5 @@ class cog_9(commands.Cog):
         await ctx.send(embed=embed)
 
 
-def setup(client):
-    client.add_cog(cog_9(client))
+async def setup(bot: Heron):
+    await bot.add_cog(Config(bot))

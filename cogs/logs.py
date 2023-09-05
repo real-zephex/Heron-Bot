@@ -14,16 +14,6 @@ class Logs(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    # For Events
-    @commands.Cog.listener()
-    async def on_ready(self):
-        await self.client.change_presence(
-            activity=discord.Game(name="Watching Pheonix's Server")
-        )
-        print(
-            f"{self.client.user} is up and running!! \nAverage latency of {round(self.client.latency)*1000}ms "
-        )
-
     @commands.Cog.listener()
     async def on_member_join(self, member):
         # await self.client.get_channel(956266369320624128).send(f"{member.mention} has joined the server")
