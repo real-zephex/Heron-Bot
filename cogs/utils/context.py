@@ -1,15 +1,12 @@
-from typing import TYPE_CHECKING, Any, Dict, Optional
+from typing import Any, Dict, Optional
 
 from aiohttp import ClientSession
 from discord.ext import commands
 
-if TYPE_CHECKING:
-    from bot import Heron
+# from bot import Heron
 
 
 class HeronContext(commands.Context):
-    bot: Heron
-
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
 

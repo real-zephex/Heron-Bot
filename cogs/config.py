@@ -6,12 +6,19 @@ from cogs.utils import HeronContext
 
 
 class Config(commands.Cog):
+    """Configuration for Heron"""
+
     def __init__(self, bot: Heron) -> None:
         self.bot = bot
 
-    @commands.command(name="toggle", description="Enable or disable a command!")
+    @property
+    def display_emoji(self) -> discord.PartialEmoji:
+        return discord.PartialEmoji(name="\U0001f6e0")
+
+    @commands.command(name="toggle")
     @commands.is_owner()
     async def toggle(self, ctx: HeronContext, *, command: str):
+        """Enable or disable a command!"""
         command = self.bot.get_command(command)
 
         if command is None:

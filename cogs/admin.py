@@ -31,6 +31,7 @@ class Admin(commands.Cog):
 
     @commands.command()
     async def clear(self, ctx: HeronContext, amount: int = 5):
+        """Clears any messages with a specified amount"""
         if amount > 1000:
             await ctx.reply(
                 "Please delete messages in limited amount. Deleting large amount of messages may lag the server"
@@ -54,6 +55,7 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx: HeronContext, member: discord.Member, *, reason=None):
+        """Kick a member out of the server"""
         await member.kick(reason=reason)
         embed4 = discord.Embed(
             title="Member Kicked",
@@ -72,6 +74,7 @@ class Admin(commands.Cog):
     async def ban(
         self, ctx: HeronContext, member: discord.Member, *, reason: Optional[str] = None
     ):
+        """Ban a member"""
         await member.ban(reason=reason)
         embed3 = discord.Embed(
             title="Member Banned",
@@ -88,6 +91,7 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def mute(self, ctx: HeronContext, member: discord.Member, *, reason=None):
+        """Mute a member"""
         muted_role = ctx.guild.get_role(int(mr))
         embed = discord.Embed(
             title="Member Muted",
@@ -103,6 +107,7 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def unmute(self, ctx: HeronContext, member: discord.Member):
+        """Unmute a user"""
         muted_role = ctx.guild.get_role(int(mr))
         embed = discord.Embed(
             title="Member unmuted",
@@ -112,9 +117,10 @@ class Admin(commands.Cog):
         await member.remove_roles(muted_role)
         await ctx.reply(embed=embed)
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.has_permissions(administrator=True)
     async def reload(self, ctx: HeronContext, extension: str):
+        """Reload the ext"""
         await self.bot.reload_extension(f"cogs.{extension}")
         await ctx.send("Successfully Reloaded! :white_check_mark: ")
 

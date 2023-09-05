@@ -1,4 +1,5 @@
 import random
+from typing import Literal
 
 import discord
 from discord.ext import commands
@@ -27,7 +28,10 @@ class Fun(commands.Cog):
         )
 
     @commands.command()
-    async def rps(self, ctx: HeronContext, *, choice):
+    async def rps(
+        self, ctx: HeronContext, *, choice: Literal["rock", "paper", "scissor"]
+    ):
+        """Rock Paper Scissors time"""
         if ctx.channel.id != int(ctx.config["RPS_ID"]):  # type: ignore
             return
 
@@ -62,6 +66,7 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def meme(self, ctx: HeronContext):
+        """Pulls up a random meme from Reddit"""
         if ctx.channel.id != int(ctx.config["MEME_CHANNEL_ID"]):
             return
 

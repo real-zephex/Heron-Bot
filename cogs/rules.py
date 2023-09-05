@@ -5,18 +5,19 @@ from bot import Heron
 from cogs.utils import HeronContext
 
 
-class Server(commands.Cog):
-    """Server related commands"""
+class Rules(commands.Cog):
+    """Rule related commands"""
 
     def __init__(self, bot: Heron):
         self.bot = bot
 
     @property
     def display_emoji(self) -> discord.PartialEmoji:
-        return discord.PartialEmoji(name="\U0001f6e0")
+        return discord.PartialEmoji(name="\U0001f4dc")
 
     @commands.command()
     async def rules(self, ctx: HeronContext):
+        """Heron's Rules"""
         embed = discord.Embed(
             title="Rules", description="Never try to break these rules", colour=0x87CEEB
         )
@@ -45,4 +46,4 @@ class Server(commands.Cog):
 
 
 async def setup(bot: Heron):
-    await bot.add_cog(Server(bot))
+    await bot.add_cog(Rules(bot))

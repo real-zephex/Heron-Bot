@@ -13,5 +13,9 @@ class VersionInfo(NamedTuple):
         return f"{self.major}.{self.minor}.{self.micro}-{self.releaselevel}"
 
 
-EXTENSIONS = [module.name for module in iter_modules(__path__, f"{__package__}.")]
+EXTENSIONS = [
+    module.name
+    for module in iter_modules(__path__, f"{__package__}.")
+    if module.name != "cogs.utils"
+]
 VERSION: VersionInfo = VersionInfo(major=0, minor=1, micro=0, releaselevel="alpha")
