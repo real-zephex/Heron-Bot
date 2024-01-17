@@ -1,12 +1,8 @@
 
 # Heron Bot
 
-I no longer work on this bot.
-
-**You need to edit some important values to get this bot running**
-
-**You have to edit only one file**
-
+This bot is no longer in development. I wouldn't recommend using this bot for any purpose because everything is outdated. There are better ways to implement literally every function that this bot offers. 
+Furthermore, I no longer remember the basics of discord.py. 
 
 # How to use?
 Make a .env file in the folder and make the changes as shown in ss
@@ -17,8 +13,7 @@ Edit the `.env file. Put correct values for each variable, otherwise the bot wil
 
 ```env
 token = 68474524156455441541564564
-welcome_channel = fwfwfwfwffwefw
-
+welcome_channel = <your welcome channel id>
 ```
 
 These values are not real.
